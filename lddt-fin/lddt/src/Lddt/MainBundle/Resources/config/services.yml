@@ -1,0 +1,5 @@
+services:
+    lddt.form.registration:
+        class: Lddt\UserBundle\Form\RegistrationFormType
+        tags:
+            - { name: form.type, alias: lddt_user_registration }

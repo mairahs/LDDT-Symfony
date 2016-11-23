@@ -1,0 +1,80 @@
+{#N. 3 héritage du niveau 2#}
+{% extends "LddtMainBundle::main_n2.html.twig" %}
+{% block lddt_main %}
+    <!-- Template Niveau 3 -->
+    <div class="row">
+
+        <div class="col-lg-7">
+            <h2>{{ draw.title }}</h2>
+            <img class="col-lg-12 well well-lg img-polaroid"
+                 {#src="{{ asset('bundles/app/images/'~draw.drawPath) }}"#}
+                 src="{{ asset(draw.getWebPath) }}" />
+        </div>
+        <div class="col-lg-5">
+            <div class="well SidebarShow">
+                <div class="col-lg-4">
+
+                    <img src="{{ asset(draw.user.getWebPath) }}" class="col-lg-12 img-circle shadow" /> <br/>
+
+                    <p class="AuthorName">
+ <a href="{{ path('lddt_main_draws_by_author',{id:draw.user.id}) }}">
+     {{ draw.user.username }} </a></p>
+                </div>
+                <div class="col-lg-8">
+                    <p> Voir plus de dessins dans:
+ <a href="{{ path('lddt_main_draws_by_cat',{id:draw.category.id}) }}">
+                            {{ draw.category.name }}</a></p>
+
+                    <p style="margin-top:15px"><strong>Couleurs:</strong></p>
+
+                    {% for color in draw.colors %}
+                    <a href="{{ path('lddt_main_draws_by_color',{id:color.id}) }}">
+             <div class="colorBlock"
+                  style="background:{{ color.code }}"></div></a>
+                    {% endfor %}
+
+       {% if is_granted('ROLE_ADMIN') or is_owner %}
+                    <p class="ToolsButton">
+          <a href="{{ path('lddt_main_edit',{id:draw.id}) }}"
+             class="btn btn-warning">éditer</a>
+     <a href="{{ path('lddt_main_delete',{id:draw.id}) }}" class="btn btn-danger">supprimer</a>
+                    </p>
+           <a href="{{ path('lddt_main_draws_publish',{id:draw.id}) }}">Publier / Dépublier</a>
+        {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="well">
+                <div class="col-lg-12">
+                    {% if is_granted('ROLE_USER') %}
+                   {% include 'LddtMainBundle:Default:form.html.twig' %}
+                        {% else %}
+   <p>Merci de vous<a href="{{ path('fos_user_security_login') }}"> identifier</a>  pour laisser un commentaire</p>
+                    {% endif %}
+                </div>
+                <h4>Commentaires</h4>
+                {% if comments | length > 0 %}
+                {#{% if comments.count > 0 %}#}
+                <ul>
+        {% for comment in comments | reverse %}
+                    <li>
+  <img src="{{ asset(comment.user.getWebPath) }}" width="30" alt=""/>
+                        {{ comment.user.username }}
+                        {{ comment.createdAt | date('d/m/Y H:i') }}
+                    </li>
+                    <li>{{ comment.content }}</li>
+                    <hr />
+        {% endfor %}
+                </ul>
+                    {% else %}
+                        <!-- si pas de commentaire -->
+  <p>Le dessin <strong><em>{{ draw.title }}</em></strong> n' a pas encore été commenté.</p>
+                    {% endif %}
+            </div>
+        </div>
+    </div><!-- Fin Template Niveau 3 -->
+{% endblock lddt_main %}

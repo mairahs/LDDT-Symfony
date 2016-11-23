@@ -1,0 +1,13 @@
+/*Surcharge css de bootrstrap*/
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333333;
+    background-image: url("/bundles/app/images/bkg.jpg");
+    background-repeat: repeat;
+}
+
+.margin-container-top {
+    margin-top: 60px;
+}

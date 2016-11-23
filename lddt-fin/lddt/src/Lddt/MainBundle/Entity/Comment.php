@@ -1,0 +1,225 @@
+<?php
+
+namespace Lddt\MainBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Lddt\MainBundle\Entity\Draw;
+use Lddt\UserBundle\Entity\User;
+
+/**
+ * Comment
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Lddt\MainBundle\Entity\CommentRepository")
+ */
+class Comment
+{
+    /**
+     * Relation bi-directionnelle avec l'entité draw
+     * Plusieurs commentaires pour un dessin
+     * @ORM\ManyToOne(targetEntity="Lddt\MainBundle\Entity\Draw",inversedBy="comments")
+     * @ORM\JoinColumn(name="id_draw",nullable=false,onDelete="CASCADE")
+     */
+    private $draw;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Lddt\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="id_user",onDelete="CASCADE")
+     */
+    private $user;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="author", type="string", length=255,nullable=true)
+     */
+    private $author;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+    // On passe en param obligatoire un dessin
+    public function __construct(Draw $draw, $user) {
+        $this->draw = $draw;
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+        $this->user = $user;
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     * @return Comment
+     */
+    public function setAuthor($author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Comment
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Comment
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Comment
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set draw
+     *
+     * @param \Lddt\MainBundle\Entity\Draw $draw
+     * @return Comment
+     */
+    public function setDraw(\Lddt\MainBundle\Entity\Draw $draw)
+    {
+        $this->draw = $draw;
+
+        return $this;
+    }
+
+    /**
+     * Get draw
+     *
+     * @return \Lddt\MainBundle\Entity\Draw 
+     */
+    public function getDraw()
+    {
+        return $this->draw;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Lddt\UserBundle\Entity\User $user
+     * @return Comment
+     */
+    public function setUser(\Lddt\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Lddt\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

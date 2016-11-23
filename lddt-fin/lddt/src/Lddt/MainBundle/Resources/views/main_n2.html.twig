@@ -1,0 +1,9 @@
+{# NIVEAU 2 : héritage template N1 #}
+{% extends "::main_n1.html.twig" %}
+
+{% block body %}
+    <div class="container margin-container-top">
+        {#Déclaration du block qui permettra l'injection des vues du N.3#}
+        {% block lddt_main %}{% endblock lddt_main %}
+    </div>
+{% endblock body %}

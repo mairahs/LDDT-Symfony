@@ -1,0 +1,56 @@
+{#N. 3 héritage du niveau 2#}
+{% extends "LddtMainBundle::main_n2.html.twig" %}
+{% block lddt_main %}
+    <div class="row">
+
+        {% if category is defined %}
+            <div class="col-lg-12">
+                <h1>{{ category.name }}</h1>
+            </div>
+        {% endif %}
+
+        {% if color is defined %}
+            <div class="col-lg-12">
+                <h1>{{ color.name }}</h1>
+            </div>
+        {% endif %}
+        {% if author is defined %}
+            <div class="col-lg-12">
+                <h1>{{ author.username }}</h1>
+            </div>
+        {% endif %}
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="alert alert-success">
+                <p>{{ flashMessage }} </p>
+         </div>
+{% endfor %}
+        <!--  <div class="alert alert-error">
+               <p>Message d'erreur</p>
+        </div> -->
+{% for draw in draws %}
+        <!-- Boucle For -->
+        <div class="col-lg-4">
+            <div class="thumbnail">
+                <img class="img-thumbnail"
+                     src="{{ asset(draw.getWebPath) }}" />
+                <div class="caption">
+                    <p><strong>{{ draw.title }}</strong></p>
+       <p><a href="{{ path('lddt_main_draws_by_cat',{id:draw.category.id}) }}">
+               {{ draw.category.name }}</a></p>
+                    <div class="col-lg-3 col-lg-offset-9">
+                        <p class="AuthorName">
+   <a href="{{ path('lddt_main_draws_by_author',{id:draw.user.id}) }}">{{ draw.user.username }} </a>
+                            <img width="60" class="img-circle"
+        src="{{ asset(draw.user.getWebPath) }}" />
+                        </p>
+                    </div>
+                    <a class="btn btn-small btn-info"
+                       href="{{ path('lddt_main_show',{id:draw.id}) }}">Voir dessin <i class="icon-eye-open"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Boucle For -->
+{% endfor %}
+    </div><!-- Fin Template Niveau 3 -->
+
+{% endblock lddt_main %}

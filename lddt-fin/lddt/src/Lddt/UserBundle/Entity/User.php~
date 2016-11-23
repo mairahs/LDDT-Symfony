@@ -1,0 +1,64 @@
+<?php
+
+namespace Lddt\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Entity\User as BaseUser;
+/**
+ * User
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Lddt\UserBundle\Entity\UserRepository")
+ */
+class User extends BaseUser
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatarPath", type="string", length=255,nullable=true)
+     */
+    private $avatarPath;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set avatarPath
+     *
+     * @param string $avatarPath
+     * @return User
+     */
+    public function setAvatarPath($avatarPath)
+    {
+        $this->avatarPath = $avatarPath;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarPath
+     *
+     * @return string 
+     */
+    public function getAvatarPath()
+    {
+        return $this->avatarPath;
+    }
+}

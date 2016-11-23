@@ -1,0 +1,20 @@
+{
+  "name": "lddt",
+  "version": "0.0.0",
+  "authors": [
+    "yop <yo@yo.com>"
+  ],
+  "description": "les dessins du téléphone",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/vendor-front",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}

@@ -1,0 +1,13 @@
+<div class="well">
+    <h1>Créez votre compte</h1>
+    <hr/>
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    {{ form_widget(form) }}
+    <div>
+        <hr/>
+
+        <input class="btn btn-primary pull-right" type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+        <div class="clearfix"></div>
+    </div>
+</form>
+</div>

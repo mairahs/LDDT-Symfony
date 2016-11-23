@@ -1,0 +1,26 @@
+{#N. 3 héritage du niveau 2#}
+{% extends "LddtMainBundle::main_n2.html.twig" %}
+{% block lddt_main %}
+<div class="row">
+    <div class="well well-lg" style="height:450px">
+        <div class="col-lg-3 col-lg-offset-1">
+            <h1>Vous dessinez au téléphone ? </h1>
+            <img width="290"
+                 src="{{ asset('bundles/app/images/red-phone.jpg') }}" />
+        </div>
+        <div class="col-lg-5 col-lg-offset-1">
+            <h3>Envoyez votre dessin !</h3>
+            {% if is_granted('ROLE_USER') %}
+
+            <!-- Template Formulaire -->
+            <p>{%include "LddtMainBundle:Default:form.html.twig" %}</p>
+
+                {% else  %}
+            <!-- Fin Template Formulaire -->
+            <!-- Si le visiteur n'est pas identifié -->
+ <p>Merci de vous<a href="{{ path('fos_user_security_login') }}"> identifier</a>  pour poster vos dessins !</p>
+                    {% endif %}
+        </div>
+    </div>
+</div><!-- Fin Template Niveau 3 -->
+{% endblock lddt_main %}
